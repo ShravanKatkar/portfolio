@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shravan Katkar | Gen AI Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicon/devicon@latest/devicon.min.css" />
+    <style>
+        :root {
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-body);
+            cursor: none;
+            background-color: #050505;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+        }
+
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+
+        a,
+        button,
+        input,
+        textarea,
+        select {
+            cursor: none;
+        }
+
+        /* Tech Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Premium Glass Effect */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(30, 30, 30, 0.5);
+        }
+
+        /* Animations */
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Stroke Effect */
+        .text-stroke-sm {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+
+        .text-stroke-lg {
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+
+        /* Skill Bar Animation - REMOVED as requested */
+    </style>
+</head>
+
+<body class="text-zinc-100 selection:bg-white selection:text-black overflow-x-hidden">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"
+        class="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[100] mix-blend-difference"></div>
+    <div id="cursor-follower"
+        class="fixed top-0 left-0 w-12 h-12 border border-white/30 rounded-full pointer-events-none z-[99] mix-blend-difference transition-transform duration-150 ease-out flex items-center justify-center">
+        <div class="w-1 h-1 bg-white rounded-full opacity-50"></div>
+    </div>
+
+    <!-- Fixed Background Grid -->
+    <div class="fixed inset-0 bg-grid z-0 pointer-events-none"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 border-b border-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tighter font-heading flex items-center gap-2 group cursor-pointer"
+                onclick="window.scrollTo(0,0)">
+                <div
+                    class="w-8 h-8 bg-white text-black flex items-center justify-center rounded font-mono text-xs group-hover:rotate-12 transition-transform">
+                    SK</div>
+                <span
+                    class="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono tracking-widest -ml-2 group-hover:ml-0">KATKAR</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#about"
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">About</a>
+                <a href="#skills"
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">Skills</a>
+                <a href="#projects"
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">Work</a>
+                <button onclick="document.getElementById('contact').scrollIntoView()"
+                    class="px-5 py-2 text-xs font-bold bg-white text-black hover:bg-zinc-200 transition-all font-mono">LET'S
+                    TALK</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl">
+                <div class="reveal-on-scroll mb-6 flex items-center gap-4">
+                    <span class="h-px w-12 bg-zinc-700"></span>
+                    <span class="text-xs font-mono text-zinc-400 uppercase tracking-[0.2em]">Generative AI
+                        Engineer</span>
+                </div>
+
+                <h1
+                    class="reveal-on-scroll text-7xl md:text-[120px] leading-[0.9] font-bold mb-10 tracking-tighter mix-blend-difference">
+                    SHRAVAN<br />
+                    <span
+                        class="text-stroke-sm md:text-stroke-lg text-transparent hover:text-white transition-colors duration-700">KATKAR</span>
+                </h1>
+
+                <div class="reveal-on-scroll flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16">
+                    <p class="max-w-lg text-zinc-400 text-lg font-light leading-relaxed">
+                        Engineering the next generation of <span class="text-white font-normal">Large Language
+                            Models</span> and <span class="text-white font-normal">Autonomous Agents</span>. Turning raw
+                        data into intelligent conversations.
+                    </p>
+
+                    <div class="flex gap-4">
+                        <a href="https://github.com/ShravanKatkar" target="_blank"
+                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/shravan-katkar-05b170283/" target="_blank"
+                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="mailto:shravankatkar818@gmail.com"
+                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
+                        <!-- LeetCode -->
+                        <a href="https://leetcode.com/u/Shravan077/" target="_blank"
+                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group"
+                            title="LeetCode">
+                            <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-current">
+                                <path
+                                    d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-1.083-0.876-2.435-1.206-3.77-0.996Z" />
+                            </svg>
+                        </a>
+                        <!-- HackerRank -->
+                        <a href="https://www.hackerrank.com/profile/shravankatkar818" target="_blank"
+                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group"
+                            title="HackerRank">
+                            <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-current">
+                                <path
+                                    d="M22.95 24H24V0h-1.05v24zM12.911 20.306l-3.328-4.996s1.291-1.267 1.291-2.923c0-3.328-1.396-4.928-1.396-4.928l3.433-5.228h-2.964L7.542 6.578v-4.35H5.437v20.442h2.105v-5.467l2.809 5.467h2.56z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 right-12 flex flex-col items-center gap-4">
+            <span
+                class="text-[10px] font-mono uppercase rotate-90 origin-right translate-x-2 text-zinc-500">Scroll</span>
+            <div class="h-16 w-px bg-zinc-800 overflow-hidden">
+                <div class="h-1/2 w-full bg-white animate-blob" style="animation: drop 2s infinite;"></div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        @keyframes drop {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(200%);
+            }
+        }
+    </style>
+
+    <!-- About / Stats Section - MODIFIED (Removed Profile Image) -->
+    <section id="about" class="py-32 border-t border-white/5 bg-black/50 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto reveal-on-scroll text-center">
+                <div class="inline-block mb-6 px-3 py-1 border border-green-500/30 bg-green-500/10 rounded-full">
+                    <div class="flex items-center gap-2 text-green-400 text-xs font-bold uppercase tracking-wide">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        Open to Work
+                    </div>
+                </div>
+
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Architecting Intelligence.</h2>
+                <p class="text-zinc-400 text-lg md:text-xl leading-relaxed mb-12 font-light">
+                    I don't just build models; I build systems that think. As a <span
+                        class="text-white font-medium">Generative AI Engineer</span>, I bridge the gap between
+                    cutting-edge research and production-grade applications. My expertise lies in pushing the boundaries
+                    of what LLMs can achieve through fine-tuning and RAG.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    <div
+                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        <div
+                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            2+</div>
+                        <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Years Experience</div>
+                    </div>
+                    <div
+                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        <div
+                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            15+</div>
+                        <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Projects Delivered</div>
+                    </div>
+                    <div
+                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        <div
+                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            99%</div>
+                        <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Accuracy (RAG)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRO SKILLS SECTION - MODIFIED (Removed Levels/Percentages) -->
+    <section id="skills" class="py-32 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex items-end justify-between mb-16 reveal-on-scroll">
+                <h2 class="text-5xl md:text-7xl font-bold">Technical<br /><span class="text-zinc-600">Arsenal</span>
+                </h2>
+                <div class="hidden md:block w-1/3 h-px bg-zinc-800 mb-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Generative AI Card -->
+                <div class="reveal-on-scroll glass-panel p-8 group">
+                    <div
+                        class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                        <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Generative AI</h3>
+                    <div class="space-y-3">
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="brain-circuit" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">RAG Systems</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="settings-2" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">LLM Fine-Tuning</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="link" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">LangChain</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="image" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">Stable Diffusion</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="database" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">LlamaIndex</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Engineering Card -->
+                <div class="reveal-on-scroll glass-panel p-8 group" style="transition-delay: 100ms">
+                    <div
+                        class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                        <i data-lucide="code-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Core Engineering</h3>
+                    <div class="space-y-3">
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-python-plain text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">Python (Expert)</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-pytorch-original text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">PyTorch / TensorFlow</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-cplusplus-plain text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">C++ / CUDA</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-fastapi-plain text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">FastAPI</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-postgresql-plain text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">SQL / NoSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructure Card -->
+                <div class="reveal-on-scroll glass-panel p-8 group" style="transition-delay: 200ms">
+                    <div
+                        class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                        <i data-lucide="server" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Infrastructure</h3>
+                    <div class="space-y-3">
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-amazonwebservices-original-wordmark text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">AWS / Cloud Services</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i class="devicon-docker-plain text-xl text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">Docker / Kubernetes</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="container" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">MLOps Pipelines</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="database-zap" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">Vector Databases</span>
+                        </div>
+                        <div
+                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
+                            <i data-lucide="minimize-2" class="w-5 h-5 text-white"></i>
+                            <span class="text-sm font-mono text-zinc-300">Model Quantization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 border-t border-white/5 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="mb-20 reveal-on-scroll">
+                <h2 class="text-5xl md:text-7xl font-bold mb-4">Selected<br />Work</h2>
+                <p class="text-zinc-400 font-mono text-sm">/// CURATED PROJECTS 2023-2025</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Project 1 -->
+                <div
+                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    <div class="max-w-2xl">
+                        <div class="text-xs font-mono text-zinc-500 mb-4">01 / GENERATIVE AI</div>
+                        <h3
+                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            Enterprise RAG Assistant</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-6">
+                            An autonomous legal assistant utilizing Retrieval Augmented Generation (RAG) to process
+                            thousands of case files with 99% context retrieval accuracy. Reduced legal research time by
+                            60%.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">LangChain</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">Pinecone</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">GPT-4</span>
+                        </div>
+                    </div>
+                    <div class="md:text-right">
+                        <i data-lucide="arrow-up-right"
+                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div
+                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    <div class="max-w-2xl">
+                        <div class="text-xs font-mono text-zinc-500 mb-4">02 / COMPUTER VISION</div>
+                        <h3
+                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            Neural Style Transfer Engine</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-6">
+                            Real-time video processing pipeline capable of applying artistic styles to live feeds with
+                            sub-50ms latency using optimized Generative Adversarial Networks (GANs).
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">PyTorch</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">CUDA</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">OpenCV</span>
+                        </div>
+                    </div>
+                    <div class="md:text-right">
+                        <i data-lucide="arrow-up-right"
+                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div
+                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    <div class="max-w-2xl">
+                        <div class="text-xs font-mono text-zinc-500 mb-4">03 / EDGE AI</div>
+                        <h3
+                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            Medical Diagnosis Bot</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-6">
+                            Fine-tuned LLaMA-2 model specializing in initial patient triage and medical terminology
+                            explanation. Quantized to run efficiently on edge devices without internet.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">LLaMA-2</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">QLoRA</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">FastAPI</span>
+                        </div>
+                    </div>
+                    <div class="md:text-right">
+                        <i data-lucide="arrow-up-right"
+                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-32 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="reveal-on-scroll">
+                <h2 class="text-5xl md:text-7xl font-bold mb-16">Certifications</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Certificate 1 -->
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Generative AI Fundamentals</h3>
+                    <p class="text-sm font-mono text-zinc-400 mb-4">Google Cloud</p>
+                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Comprehensive understanding of LLMs, image
+                        generation, and prompt engineering principles.</p>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors"
+                    style="transition-delay: 100ms">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2023</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Deep Learning Specialization</h3>
+                    <p class="text-sm font-mono text-zinc-400 mb-4">Coursera / DeepLearning.AI</p>
+                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Mastered neural networks, CNNs, RNNs, and
+                        hyperparameter tuning techniques.</p>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors"
+                    style="transition-delay: 200ms">
+                    <div class="mb-6 flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2023</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">AWS Certified Cloud Practitioner</h3>
+                    <p class="text-sm font-mono text-zinc-400 mb-4">Amazon Web Services</p>
+                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Fundamental understanding of AWS cloud platform,
+                        security, and architecture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-32 border-t border-white/5 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="reveal-on-scroll">
+                    <h2 class="text-6xl md:text-8xl font-bold leading-none mb-8">Let's<br />Build.</h2>
+                    <p class="text-zinc-400 text-lg mb-12">Ready to transform your ideas into intelligent reality? Drop
+                        a message and let's discuss the future.</p>
+
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="flex items-center gap-4 text-zinc-400">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <a href="mailto:shravankatkar818@gmail.com"
+                                class="hover:text-white transition-colors">shravankatkar818@gmail.com</a>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-400">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            <a href="https://www.linkedin.com/in/shravan-katkar-05b170283/" target="_blank"
+                                class="hover:text-white transition-colors">LinkedIn Profile</a>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-400">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                            <a href="https://github.com/ShravanKatkar" target="_blank"
+                                class="hover:text-white transition-colors">GitHub Profile</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll glass-panel p-8 md:p-12">
+                    <form onsubmit="event.preventDefault();" class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-mono uppercase text-zinc-500">Full Name</label>
+                            <input type="text"
+                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none"
+                                placeholder="John Doe">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-mono uppercase text-zinc-500">Email Address</label>
+                            <input type="email"
+                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none"
+                                placeholder="john@example.com">
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="text-xs font-mono uppercase text-zinc-500">Message</label>
+                                <button type="button" id="ai-polish-btn"
+                                    class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded flex items-center gap-1 transition-colors">
+                                    <i data-lucide="sparkles" class="w-3 h-3"></i> AI Polish
+                                </button>
+                            </div>
+                            <textarea id="contact-message" rows="4"
+                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none resize-none"
+                                placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button
+                            class="w-full bg-white text-black font-bold py-4 hover:bg-zinc-200 transition-colors font-mono uppercase tracking-widest">Send
+                            Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div
+                class="mt-32 pt-8 border-t border-zinc-900 flex justify-between items-center text-xs font-mono text-zinc-600">
+                <div>© 2025 SHRAVAN KATKAR</div>
+                <div>ENGINEERED WITH FLASK & GEMINI</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <div id="chat-window"
+            class="hidden mb-4 w-80 md:w-96 h-[500px] glass-panel rounded-none flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0"
+            style="transition: all 0.3s ease;">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="font-mono text-sm font-bold tracking-wider">SHRAVAN.AI</span>
+                </div>
+                <button onclick="toggleChat()" class="hover:text-white text-zinc-500"><i data-lucide="x"
+                        class="w-4 h-4"></i></button>
+            </div>
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm font-mono">
+                <div class="flex justify-start">
+                    <div class="max-w-[85%] p-4 bg-white/5 border border-white/10 text-zinc-300">
+                        System initialized. I am Shravan's digital twin. How can I assist with your inquiry today?
+                    </div>
+                </div>
+            </div>
+            <form onsubmit="handleChat(event)" class="p-4 border-t border-white/10 bg-black/40 flex gap-2">
+                <input id="chat-input"
+                    class="w-full bg-transparent border-b border-zinc-700 p-2 text-white outline-none font-mono text-sm focus:border-white transition-colors"
+                    placeholder="Type command...">
+                <button class="text-white hover:text-zinc-300 transition-colors"><i data-lucide="send"
+                        class="w-4 h-4"></i></button>
+            </form>
+        </div>
+        <button onclick="toggleChat()"
+            class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform">
+            <i data-lucide="bot" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Cursor Logic
+        const cursor = document.getElementById('cursor-dot'), follower = document.getElementById('cursor-follower');
+        let mx = 0, my = 0, fx = 0, fy = 0;
+        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`; });
+        function anim() { fx += (mx - fx) * 0.1; fy += (my - fy) * 0.1; follower.style.transform = `translate3d(${fx}px, ${fy}px, 0) translate(-50%, -50%)`; requestAnimationFrame(anim); }
+        anim();
+
+        // Hover Effect for Cursor
+        document.querySelectorAll('a, button, .group').forEach(el => {
+            el.addEventListener('mouseenter', () => { follower.classList.add('scale-[1.5]', 'bg-white'); follower.classList.remove('border-white/30'); });
+            el.addEventListener('mouseleave', () => { follower.classList.remove('scale-[1.5]', 'bg-white'); follower.classList.add('border-white/30'); });
+        });
+
+        // Scroll Reveal
+        const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('reveal-hidden'); e.target.classList.add('reveal-visible'); } }));
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => { el.classList.add('reveal-hidden'); obs.observe(el); });
+
+        // Typing Effect
+        const txt = "Generative AI Engineer", el = document.getElementById('typing-text');
+        // Note: The typing effect element is hidden in this new design in favor of static text, but code kept if you want to re-enable it.
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('glass-nav');
+            else nav.classList.remove('glass-nav');
+        });
+
+        // Chat Logic
+        const chatWindow = document.getElementById('chat-window');
+        function toggleChat() {
+            chatWindow.classList.toggle('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                chatWindow.classList.toggle('opacity-0');
+                chatWindow.classList.toggle('scale-95');
+            }, 10);
+        }
+
+        async function handleChat(e) {
+            e.preventDefault(); const inp = document.getElementById('chat-input'); const msg = inp.value; if (!msg) return;
+            const box = document.getElementById('chat-messages');
+
+            // User Message
+            box.innerHTML += `<div class="flex justify-end"><div class="max-w-[85%] p-4 bg-white text-black font-bold text-sm">${msg}</div></div>`;
+            inp.value = '';
+            box.scrollTop = box.scrollHeight;
+
+            // Loading Indicator
+            const loadingId = 'load-' + Date.now();
+            box.innerHTML += `<div id="${loadingId}" class="flex justify-start"><div class="text-zinc-500 text-xs font-mono animate-pulse">PROCESSING...</div></div>`;
+            box.scrollTop = box.scrollHeight;
+
+            try {
+                const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+                const data = await res.json();
+                document.getElementById(loadingId).remove();
+                box.innerHTML += `<div class="flex justify-start"><div class="max-w-[85%] p-4 bg-white/5 border border-white/10 text-zinc-300">${data.response}</div></div>`;
+            } catch (err) {
+                document.getElementById(loadingId).innerHTML = "ERROR: CONNECTION LOST";
+            }
+            box.scrollTop = box.scrollHeight;
+        }
+
+        // Polish Logic
+        document.getElementById('ai-polish-btn').addEventListener('click', async () => {
+            const txt = document.getElementById('contact-message');
+            const original = txt.value;
+            if (original.length < 3) return;
+
+            const btn = document.getElementById('ai-polish-btn');
+            btn.innerHTML = "POLISHING...";
+
+            const res = await fetch('/api/polish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: original }) });
+            const data = await res.json();
+            txt.value = data.response;
+            btn.innerHTML = '<i data-lucide="sparkles" class="w-3 h-3"></i> AI Polish';
+        });
+    </script>
+</body>
+
+</html>
