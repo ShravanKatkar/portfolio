@@ -16,55 +16,55 @@
             --font-heading: 'Syne', sans-serif;
             --font-body: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #111111;
+            --text-secondary: #4a4a4a;
+            --accent: #4f46e5;
+            --border: rgba(0, 0, 0, 0.08);
         }
 
         body {
             font-family: var(--font-body);
             cursor: none;
-            background-color: #050505;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-heading);
+            color: var(--text-primary);
         }
 
         .font-mono {
             font-family: var(--font-mono);
         }
 
-        a,
-        button,
-        input,
-        textarea,
-        select {
+        a, button, input, textarea, select {
             cursor: none;
         }
 
         /* Tech Grid Background */
         .bg-grid {
             background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
             mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
         }
 
         /* Premium Glass Effect */
         .glass-panel {
-            background: rgba(20, 20, 20, 0.4);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
         }
 
         .glass-panel:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(30, 30, 30, 0.5);
+            border-color: rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 40px -5px rgba(0, 0, 0, 0.1);
         }
 
         /* Animations */
@@ -81,27 +81,127 @@
 
         /* Text Stroke Effect */
         .text-stroke-sm {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
             color: transparent;
         }
 
         .text-stroke-lg {
-            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            -webkit-text-stroke: 2px rgba(0, 0, 0, 0.05);
             color: transparent;
         }
 
-        /* Skill Bar Animation - REMOVED as requested */
+        /* Entrance Reveal */
+        #reveal-overlay {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .reveal-active #reveal-overlay {
+            transform: translateY(-100%);
+        }
+
+        .shutter-line {
+            position: absolute;
+            height: 1px;
+            width: 0;
+            background: var(--accent);
+            top: 50%;
+            transition: width 0.8s ease-in-out;
+        }
+
+        /* Custom Cursor Adjusted */
+        #cursor-dot { background-color: var(--accent); }
+        /* Keyboard Component */
+        .keyboard-container {
+            perspective: 1000px;
+        }
+
+        .kb-key {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-bottom: 4px solid #cbd5e1;
+            border-radius: 8px;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .kb-key:hover {
+            transform: translateY(-2px);
+            border-bottom-width: 6px;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .kb-key:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .kb-key.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            border-bottom-color: #312e81;
+        }
+
+        .skill-info-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-info-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
-<body class="text-zinc-100 selection:bg-white selection:text-black overflow-x-hidden">
+<body class="selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
+
+    <!-- Entrance Reveal Overlay -->
+    <div id="reveal-overlay">
+        <div class="shutter-line" id="reveal-line"></div>
+        <div class="font-heading text-4xl font-bold tracking-tighter overflow-hidden">
+            <span id="reveal-text" class="inline-block translate-y-full transition-transform duration-700">SHRAVAN.AI</span>
+        </div>
+    </div>
 
     <!-- Custom Cursor -->
     <div id="cursor-dot"
-        class="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[100] mix-blend-difference"></div>
+        class="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[100]"></div>
     <div id="cursor-follower"
-        class="fixed top-0 left-0 w-12 h-12 border border-white/30 rounded-full pointer-events-none z-[99] mix-blend-difference transition-transform duration-150 ease-out flex items-center justify-center">
-        <div class="w-1 h-1 bg-white rounded-full opacity-50"></div>
+        class="fixed top-0 left-0 w-12 h-12 border rounded-full pointer-events-none z-[99] transition-transform duration-150 ease-out flex items-center justify-center">
+        <div class="w-1 h-1 bg-indigo-600 rounded-full opacity-50"></div>
     </div>
 
     <!-- Fixed Background Grid -->
@@ -113,20 +213,20 @@
             <div class="text-xl font-bold tracking-tighter font-heading flex items-center gap-2 group cursor-pointer"
                 onclick="window.scrollTo(0,0)">
                 <div
-                    class="w-8 h-8 bg-white text-black flex items-center justify-center rounded font-mono text-xs group-hover:rotate-12 transition-transform">
+                    class="w-8 h-8 bg-black text-white flex items-center justify-center rounded font-mono text-xs group-hover:rotate-12 transition-transform">
                     SK</div>
                 <span
-                    class="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono tracking-widest -ml-2 group-hover:ml-0">KATKAR</span>
+                    class="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono tracking-widest -ml-2 group-hover:ml-0 text-black">KATKAR</span>
             </div>
             <div class="hidden md:flex items-center gap-10">
                 <a href="#about"
-                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">About</a>
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-500 hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-black hover:after:w-full after:transition-all">About</a>
                 <a href="#skills"
-                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">Skills</a>
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-500 hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-black hover:after:w-full after:transition-all">Skills</a>
                 <a href="#projects"
-                    class="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all">Work</a>
+                    class="text-xs font-mono uppercase tracking-widest text-zinc-500 hover:text-black transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-black hover:after:w-full after:transition-all">Work</a>
                 <button onclick="document.getElementById('contact').scrollIntoView()"
-                    class="px-5 py-2 text-xs font-bold bg-white text-black hover:bg-zinc-200 transition-all font-mono">LET'S
+                    class="px-5 py-2 text-xs font-bold bg-black text-white hover:bg-zinc-800 transition-all font-mono">LET'S
                     TALK</button>
             </div>
         </div>
@@ -137,41 +237,41 @@
         <div class="container mx-auto px-6">
             <div class="max-w-5xl">
                 <div class="reveal-on-scroll mb-6 flex items-center gap-4">
-                    <span class="h-px w-12 bg-zinc-700"></span>
-                    <span class="text-xs font-mono text-zinc-400 uppercase tracking-[0.2em]">Generative AI
+                    <span class="h-px w-12 bg-zinc-300"></span>
+                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-[0.2em]">Generative AI
                         Engineer</span>
                 </div>
 
                 <h1
-                    class="reveal-on-scroll text-7xl md:text-[120px] leading-[0.9] font-bold mb-10 tracking-tighter mix-blend-difference">
+                    class="reveal-on-scroll text-7xl md:text-[120px] leading-[0.9] font-bold mb-10 tracking-tighter text-black">
                     SHRAVAN<br />
                     <span
-                        class="text-stroke-sm md:text-stroke-lg text-transparent hover:text-white transition-colors duration-700">KATKAR</span>
+                        class="text-stroke-sm md:text-stroke-lg text-transparent hover:text-black transition-colors duration-700">KATKAR</span>
                 </h1>
 
                 <div class="reveal-on-scroll flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16">
-                    <p class="max-w-lg text-zinc-400 text-lg font-light leading-relaxed">
-                        Engineering the next generation of <span class="text-white font-normal">Large Language
-                            Models</span> and <span class="text-white font-normal">Autonomous Agents</span>. Turning raw
+                    <p class="max-w-lg text-zinc-600 text-lg font-light leading-relaxed">
+                        Engineering the next generation of <span class="text-black font-normal">Large Language
+                            Models</span> and <span class="text-black font-normal">Autonomous Agents</span>. Turning raw
                         data into intelligent conversations.
                     </p>
 
                     <div class="flex gap-4">
                         <a href="https://github.com/ShravanKatkar" target="_blank"
-                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            class="w-12 h-12 border border-zinc-200 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all group">
                             <i data-lucide="github" class="w-5 h-5"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/shravan-katkar-05b170283/" target="_blank"
-                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            class="w-12 h-12 border border-zinc-200 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all group">
                             <i data-lucide="linkedin" class="w-5 h-5"></i>
                         </a>
                         <a href="mailto:shravankatkar818@gmail.com"
-                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group">
+                            class="w-12 h-12 border border-zinc-200 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all group">
                             <i data-lucide="mail" class="w-5 h-5"></i>
                         </a>
                         <!-- LeetCode -->
                         <a href="https://leetcode.com/u/Shravan077/" target="_blank"
-                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group"
+                            class="w-12 h-12 border border-zinc-200 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all group"
                             title="LeetCode">
                             <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-current">
                                 <path
@@ -180,7 +280,7 @@
                         </a>
                         <!-- HackerRank -->
                         <a href="https://www.hackerrank.com/profile/shravankatkar818" target="_blank"
-                            class="w-12 h-12 border border-zinc-800 flex items-center justify-center rounded-full hover:bg-white hover:text-black transition-all group"
+                            class="w-12 h-12 border border-zinc-200 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all group"
                             title="HackerRank">
                             <svg role="img" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-current">
                                 <path
@@ -195,9 +295,9 @@
         <!-- Scroll Indicator -->
         <div class="absolute bottom-12 right-12 flex flex-col items-center gap-4">
             <span
-                class="text-[10px] font-mono uppercase rotate-90 origin-right translate-x-2 text-zinc-500">Scroll</span>
-            <div class="h-16 w-px bg-zinc-800 overflow-hidden">
-                <div class="h-1/2 w-full bg-white animate-blob" style="animation: drop 2s infinite;"></div>
+                class="text-[10px] font-mono uppercase rotate-90 origin-right translate-x-2 text-zinc-400">Scroll</span>
+            <div class="h-16 w-px bg-zinc-200 overflow-hidden">
+                <div class="h-1/2 w-full bg-black animate-blob" style="animation: drop 2s infinite;"></div>
             </div>
         </div>
     </section>
@@ -214,48 +314,48 @@
         }
     </style>
 
-    <!-- About / Stats Section - MODIFIED (Removed Profile Image) -->
-    <section id="about" class="py-32 border-t border-white/5 bg-black/50 relative z-10">
+    <!-- About / Stats Section -->
+    <section id="about" class="py-32 border-t border-zinc-100 bg-zinc-50 relative z-10">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto reveal-on-scroll text-center">
-                <div class="inline-block mb-6 px-3 py-1 border border-green-500/30 bg-green-500/10 rounded-full">
-                    <div class="flex items-center gap-2 text-green-400 text-xs font-bold uppercase tracking-wide">
+                <div class="inline-block mb-6 px-3 py-1 border border-indigo-500/30 bg-indigo-500/10 rounded-full">
+                    <div class="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wide">
                         <span class="relative flex h-2 w-2">
                             <span
-                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
                         </span>
                         Open to Work
                     </div>
                 </div>
 
-                <h2 class="text-4xl md:text-5xl font-bold mb-8">Architecting Intelligence.</h2>
-                <p class="text-zinc-400 text-lg md:text-xl leading-relaxed mb-12 font-light">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black">Architecting Intelligence.</h2>
+                <p class="text-zinc-600 text-lg md:text-xl leading-relaxed mb-12 font-light">
                     I don't just build models; I build systems that think. As a <span
-                        class="text-white font-medium">Generative AI Engineer</span>, I bridge the gap between
+                        class="text-indigo-600 font-medium">Generative AI Engineer</span>, I bridge the gap between
                     cutting-edge research and production-grade applications. My expertise lies in pushing the boundaries
                     of what LLMs can achieve through fine-tuning and RAG.
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                     <div
-                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        class="p-6 border border-zinc-100 bg-white hover:bg-zinc-50 transition-colors group shadow-sm">
                         <div
-                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl font-bold font-heading mb-1 text-black group-hover:text-indigo-600 transition-colors">
                             2+</div>
                         <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Years Experience</div>
                     </div>
                     <div
-                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        class="p-6 border border-zinc-100 bg-white hover:bg-zinc-50 transition-colors group shadow-sm">
                         <div
-                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl font-bold font-heading mb-1 text-black group-hover:text-indigo-600 transition-colors">
                             15+</div>
                         <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Projects Delivered</div>
                     </div>
                     <div
-                        class="p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group">
+                        class="p-6 border border-zinc-100 bg-white hover:bg-zinc-50 transition-colors group shadow-sm">
                         <div
-                            class="text-3xl font-bold font-heading mb-1 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl font-bold font-heading mb-1 text-black group-hover:text-indigo-600 transition-colors">
                             99%</div>
                         <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider">Accuracy (RAG)</div>
                     </div>
@@ -310,74 +410,84 @@
                     </div>
                 </div>
 
-                <!-- Core Engineering Card -->
-                <div class="reveal-on-scroll glass-panel p-8 group" style="transition-delay: 100ms">
-                    <div
-                        class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-all duration-500">
-                        <i data-lucide="code-2" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-6">Core Engineering</h3>
-                    <div class="space-y-3">
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-python-plain text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">Python (Expert)</span>
+    <!-- PRO SKILLS SECTION - KEYBOARD INTERACTIVE -->
+    <section id="skills" class="py-32 relative z-10 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-20 reveal-on-scroll">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-bold text-black">Technical<br /><span class="text-zinc-300">Arsenal</span></h2>
+                    <p class="text-zinc-500 font-mono text-sm mt-4">/// TAP KEYS TO EXPLORE DEPTH</p>
+                </div>
+                <div class="hidden md:block w-1/3 h-px bg-zinc-100 mb-4"></div>
+            </div>
+
+            <div class="keyboard-container relative max-w-5xl mx-auto reveal-on-scroll">
+                <!-- Skill Detail Overlay (Dynamic) -->
+                <div id="skill-detail" class="skill-info-overlay rounded-2xl shadow-2xl border border-zinc-100">
+                    <button onclick="hideSkillDetail()" class="absolute top-6 right-6 text-zinc-400 hover:text-black">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div id="skill-icon" class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-8 h-8"></i>
                         </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-pytorch-original text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">PyTorch / TensorFlow</span>
-                        </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-cplusplus-plain text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">C++ / CUDA</span>
-                        </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-fastapi-plain text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">FastAPI</span>
-                        </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-postgresql-plain text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">SQL / NoSQL</span>
+                        <div>
+                            <h3 id="skill-title" class="text-3xl font-bold text-black">Skill Name</h3>
+                            <p id="skill-category" class="text-sm font-mono text-indigo-500 uppercase">Category</p>
                         </div>
                     </div>
+                    <p id="skill-desc" class="text-zinc-600 text-lg leading-relaxed max-w-2xl">
+                        Detailed description of the skill and its application in production environments.
+                    </p>
                 </div>
 
-                <!-- Infrastructure Card -->
-                <div class="reveal-on-scroll glass-panel p-8 group" style="transition-delay: 200ms">
-                    <div
-                        class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-all duration-500">
-                        <i data-lucide="server" class="w-6 h-6"></i>
+                <!-- Keyboard Layout -->
+                <div class="space-y-4">
+                    <!-- Row 1: Gen AI -->
+                    <div class="flex flex-wrap gap-2 md:gap-4 justify-center">
+                        <div class="kb-key group" onclick="showSkill('RAG Systems', 'Gen AI', 'Architected autonomous legal assistants with 99% context accuracy using LlamaIndex and Pinecone.', 'brain-circuit')">
+                            RAG
+                        </div>
+                        <div class="kb-key" onclick="showSkill('LLM Fine-Tuning', 'Gen AI', 'Specialized in QLoRA and PEFT for domain-specific model adaptation (LLaMA-2, Mistral).', 'settings-2')">
+                            FINE-TUNE
+                        </div>
+                        <div class="kb-key" onclick="showSkill('LangChain', 'Gen AI', 'Building complex agentic workflows and multi-step reasoning chains.', 'link')">
+                            LANGCHAIN
+                        </div>
+                        <div class="kb-key" onclick="showSkill('Stable Diffusion', 'Gen AI', 'Custom LoRA training and ControlNet implementation for creative pipelines.', 'image')">
+                            DIFFUSION
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold mb-6">Infrastructure</h3>
-                    <div class="space-y-3">
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-amazonwebservices-original-wordmark text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">AWS / Cloud Services</span>
+
+                    <!-- Row 2: Core Engineering -->
+                    <div class="flex flex-wrap gap-2 md:gap-4 justify-center md:pl-12">
+                        <div class="kb-key" onclick="showSkill('Python', 'Core', 'Expert-level development, focusing on high-performance AI integration.', 'code-2')">
+                            PYTHON
                         </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i class="devicon-docker-plain text-xl text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">Docker / Kubernetes</span>
+                        <div class="kb-key" onclick="showSkill('PyTorch', 'Core', 'Deep learning research and production model deployment.', 'zap')">
+                            PYTORCH
                         </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i data-lucide="container" class="w-5 h-5 text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">MLOps Pipelines</span>
+                        <div class="kb-key" onclick="showSkill('CUDA', 'Core', 'Optimizing tensor operations for sub-50ms latency in real-time apps.', 'cpu')">
+                            CUDA
                         </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i data-lucide="database-zap" class="w-5 h-5 text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">Vector Databases</span>
+                        <div class="kb-key" onclick="showSkill('FastAPI', 'Core', 'Building scalable, high-concurrency backends for AI services.', 'server')">
+                            FASTAPI
                         </div>
-                        <div
-                            class="p-3 border border-white/5 bg-white/[0.02] rounded flex items-center gap-3 hover:bg-white/5 transition-colors">
-                            <i data-lucide="minimize-2" class="w-5 h-5 text-white"></i>
-                            <span class="text-sm font-mono text-zinc-300">Model Quantization</span>
+                    </div>
+
+                    <!-- Row 3: Infrastructure -->
+                    <div class="flex flex-wrap gap-2 md:gap-4 justify-center md:pr-12">
+                        <div class="kb-key" onclick="showSkill('MLOps', 'Infrastructure', 'Automating model deployment and monitoring pipelines.', 'workflow')">
+                            MLOPS
+                        </div>
+                        <div class="kb-key" onclick="showSkill('AWS', 'Infrastructure', 'Cloud architecture, Sagemaker, and serverless AI deployments.', 'cloud')">
+                            AWS
+                        </div>
+                        <div class="kb-key" onclick="showSkill('Docker', 'Infrastructure', 'Containerization of complex AI environments for reproducibility.', 'container')">
+                            DOCKER
+                        </div>
+                        <div class="kb-key" onclick="showSkill('Vector DB', 'Infrastructure', 'Managing high-dimensional data in Pinecone and Weaviate.', 'database')">
+                            VECTOR.DB
                         </div>
                     </div>
                 </div>
@@ -386,90 +496,90 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-32 border-t border-white/5 relative z-10">
+    <section id="projects" class="py-32 border-t border-zinc-100 relative z-10 bg-zinc-50">
         <div class="container mx-auto px-6">
             <div class="mb-20 reveal-on-scroll">
-                <h2 class="text-5xl md:text-7xl font-bold mb-4">Selected<br />Work</h2>
-                <p class="text-zinc-400 font-mono text-sm">/// CURATED PROJECTS 2023-2025</p>
+                <h2 class="text-5xl md:text-7xl font-bold mb-4 text-black">Selected<br />Work</h2>
+                <p class="text-zinc-500 font-mono text-sm">/// CURATED PROJECTS 2023-2025</p>
             </div>
 
             <div class="space-y-8">
                 <!-- Project 1 -->
                 <div
-                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    class="reveal-on-scroll group relative bg-white border border-zinc-100 hover:border-indigo-200 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start shadow-sm hover:shadow-xl">
                     <div class="max-w-2xl">
-                        <div class="text-xs font-mono text-zinc-500 mb-4">01 / GENERATIVE AI</div>
+                        <div class="text-xs font-mono text-zinc-400 mb-4">01 / GENERATIVE AI</div>
                         <h3
-                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl md:text-4xl font-bold mb-4 text-black group-hover:text-indigo-600 transition-colors">
                             Enterprise RAG Assistant</h3>
-                        <p class="text-zinc-400 leading-relaxed mb-6">
+                        <p class="text-zinc-600 leading-relaxed mb-6">
                             An autonomous legal assistant utilizing Retrieval Augmented Generation (RAG) to process
                             thousands of case files with 99% context retrieval accuracy. Reduced legal research time by
                             60%.
                         </p>
                         <div class="flex flex-wrap gap-3">
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">LangChain</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">LangChain</span>
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">Pinecone</span>
-                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">GPT-4</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">Pinecone</span>
+                            <span class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">GPT-4</span>
                         </div>
                     </div>
                     <div class="md:text-right">
                         <i data-lucide="arrow-up-right"
-                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                            class="w-10 h-10 text-zinc-300 group-hover:text-indigo-600 group-hover:rotate-45 transition-all duration-500"></i>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
                 <div
-                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    class="reveal-on-scroll group relative bg-white border border-zinc-100 hover:border-indigo-200 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start shadow-sm hover:shadow-xl">
                     <div class="max-w-2xl">
-                        <div class="text-xs font-mono text-zinc-500 mb-4">02 / COMPUTER VISION</div>
+                        <div class="text-xs font-mono text-zinc-400 mb-4">02 / COMPUTER VISION</div>
                         <h3
-                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl md:text-4xl font-bold mb-4 text-black group-hover:text-indigo-600 transition-colors">
                             Neural Style Transfer Engine</h3>
-                        <p class="text-zinc-400 leading-relaxed mb-6">
+                        <p class="text-zinc-600 leading-relaxed mb-6">
                             Real-time video processing pipeline capable of applying artistic styles to live feeds with
                             sub-50ms latency using optimized Generative Adversarial Networks (GANs).
                         </p>
                         <div class="flex flex-wrap gap-3">
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">PyTorch</span>
-                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">CUDA</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">PyTorch</span>
+                            <span class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">CUDA</span>
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">OpenCV</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">OpenCV</span>
                         </div>
                     </div>
                     <div class="md:text-right">
                         <i data-lucide="arrow-up-right"
-                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                            class="w-10 h-10 text-zinc-300 group-hover:text-indigo-600 group-hover:rotate-45 transition-all duration-500"></i>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
                 <div
-                    class="reveal-on-scroll group relative bg-zinc-900/30 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start">
+                    class="reveal-on-scroll group relative bg-white border border-zinc-100 hover:border-indigo-200 transition-all duration-500 p-8 md:p-12 flex flex-col md:flex-row justify-between gap-8 items-start shadow-sm hover:shadow-xl">
                     <div class="max-w-2xl">
-                        <div class="text-xs font-mono text-zinc-500 mb-4">03 / EDGE AI</div>
+                        <div class="text-xs font-mono text-zinc-400 mb-4">03 / EDGE AI</div>
                         <h3
-                            class="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-zinc-300 transition-colors">
+                            class="text-3xl md:text-4xl font-bold mb-4 text-black group-hover:text-indigo-600 transition-colors">
                             Medical Diagnosis Bot</h3>
-                        <p class="text-zinc-400 leading-relaxed mb-6">
+                        <p class="text-zinc-600 leading-relaxed mb-6">
                             Fine-tuned LLaMA-2 model specializing in initial patient triage and medical terminology
                             explanation. Quantized to run efficiently on edge devices without internet.
                         </p>
                         <div class="flex flex-wrap gap-3">
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">LLaMA-2</span>
-                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">QLoRA</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">LLaMA-2</span>
+                            <span class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">QLoRA</span>
                             <span
-                                class="px-3 py-1 bg-white/5 rounded-full text-xs text-zinc-300 font-mono">FastAPI</span>
+                                class="px-3 py-1 bg-zinc-100 rounded-full text-xs text-zinc-600 font-mono">FastAPI</span>
                         </div>
                     </div>
                     <div class="md:text-right">
                         <i data-lucide="arrow-up-right"
-                            class="w-10 h-10 text-zinc-600 group-hover:text-white group-hover:rotate-45 transition-all duration-500"></i>
+                            class="w-10 h-10 text-zinc-300 group-hover:text-indigo-600 group-hover:rotate-45 transition-all duration-500"></i>
                     </div>
                 </div>
             </div>
@@ -477,62 +587,62 @@
     </section>
 
     <!-- Certificates Section -->
-    <section id="certificates" class="py-32 relative z-10">
+    <section id="certificates" class="py-32 relative z-10 bg-white">
         <div class="container mx-auto px-6">
             <div class="reveal-on-scroll">
-                <h2 class="text-5xl md:text-7xl font-bold mb-16">Certifications</h2>
+                <h2 class="text-5xl md:text-7xl font-bold mb-16 text-black">Certifications</h2>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Certificate 1 -->
-                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors">
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-indigo-300 transition-all duration-500">
                     <div class="mb-6 flex justify-between items-start">
                         <div
-                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            class="w-12 h-12 bg-zinc-50 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors text-black">
                             <i data-lucide="award" class="w-6 h-6"></i>
                         </div>
                         <span
-                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2024</span>
+                            class="text-xs font-mono text-zinc-400 border border-zinc-100 px-2 py-1 rounded">2024</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-white">Generative AI Fundamentals</h3>
+                    <h3 class="text-xl font-bold mb-2 text-black">Generative AI Fundamentals</h3>
                     <p class="text-sm font-mono text-zinc-400 mb-4">Google Cloud</p>
-                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <div class="h-px w-full bg-zinc-100 mb-4 group-hover:bg-indigo-100 transition-colors"></div>
                     <p class="text-zinc-500 text-sm leading-relaxed">Comprehensive understanding of LLMs, image
                         generation, and prompt engineering principles.</p>
                 </div>
 
                 <!-- Certificate 2 -->
-                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors"
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-indigo-300 transition-all duration-500"
                     style="transition-delay: 100ms">
                     <div class="mb-6 flex justify-between items-start">
                         <div
-                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            class="w-12 h-12 bg-zinc-50 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors text-black">
                             <i data-lucide="award" class="w-6 h-6"></i>
                         </div>
                         <span
-                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2023</span>
+                            class="text-xs font-mono text-zinc-400 border border-zinc-100 px-2 py-1 rounded">2023</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-white">Deep Learning Specialization</h3>
+                    <h3 class="text-xl font-bold mb-2 text-black">Deep Learning Specialization</h3>
                     <p class="text-sm font-mono text-zinc-400 mb-4">Coursera / DeepLearning.AI</p>
-                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <div class="h-px w-full bg-zinc-100 mb-4 group-hover:bg-indigo-100 transition-colors"></div>
                     <p class="text-zinc-500 text-sm leading-relaxed">Mastered neural networks, CNNs, RNNs, and
                         hyperparameter tuning techniques.</p>
                 </div>
 
                 <!-- Certificate 3 -->
-                <div class="reveal-on-scroll glass-panel p-8 group hover:border-white/30 transition-colors"
+                <div class="reveal-on-scroll glass-panel p-8 group hover:border-indigo-300 transition-all duration-500"
                     style="transition-delay: 200ms">
                     <div class="mb-6 flex justify-between items-start">
                         <div
-                            class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            class="w-12 h-12 bg-zinc-50 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors text-black">
                             <i data-lucide="award" class="w-6 h-6"></i>
                         </div>
                         <span
-                            class="text-xs font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded">2023</span>
+                            class="text-xs font-mono text-zinc-400 border border-zinc-100 px-2 py-1 rounded">2023</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-white">AWS Certified Cloud Practitioner</h3>
+                    <h3 class="text-xl font-bold mb-2 text-black">AWS Certified Cloud Practitioner</h3>
                     <p class="text-sm font-mono text-zinc-400 mb-4">Amazon Web Services</p>
-                    <div class="h-px w-full bg-zinc-800 mb-4 group-hover:bg-zinc-600 transition-colors"></div>
+                    <div class="h-px w-full bg-zinc-100 mb-4 group-hover:bg-indigo-100 transition-colors"></div>
                     <p class="text-zinc-500 text-sm leading-relaxed">Fundamental understanding of AWS cloud platform,
                         security, and architecture.</p>
                 </div>
@@ -541,68 +651,68 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="py-32 border-t border-white/5 relative z-10">
+    <section id="contact" class="py-32 border-t border-zinc-100 relative z-10 bg-zinc-50">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-16">
                 <div class="reveal-on-scroll">
-                    <h2 class="text-6xl md:text-8xl font-bold leading-none mb-8">Let's<br />Build.</h2>
-                    <p class="text-zinc-400 text-lg mb-12">Ready to transform your ideas into intelligent reality? Drop
+                    <h2 class="text-6xl md:text-8xl font-bold leading-none mb-8 text-black">Let's<br />Build.</h2>
+                    <p class="text-zinc-500 text-lg mb-12">Ready to transform your ideas into intelligent reality? Drop
                         a message and let's discuss the future.</p>
 
                     <div class="space-y-4 font-mono text-sm">
-                        <div class="flex items-center gap-4 text-zinc-400">
+                        <div class="flex items-center gap-4 text-zinc-500">
                             <i data-lucide="mail" class="w-4 h-4"></i>
                             <a href="mailto:shravankatkar818@gmail.com"
-                                class="hover:text-white transition-colors">shravankatkar818@gmail.com</a>
+                                class="hover:text-black transition-colors">shravankatkar818@gmail.com</a>
                         </div>
-                        <div class="flex items-center gap-4 text-zinc-400">
+                        <div class="flex items-center gap-4 text-zinc-500">
                             <i data-lucide="linkedin" class="w-4 h-4"></i>
                             <a href="https://www.linkedin.com/in/shravan-katkar-05b170283/" target="_blank"
-                                class="hover:text-white transition-colors">LinkedIn Profile</a>
+                                class="hover:text-black transition-colors">LinkedIn Profile</a>
                         </div>
-                        <div class="flex items-center gap-4 text-zinc-400">
+                        <div class="flex items-center gap-4 text-zinc-500">
                             <i data-lucide="github" class="w-4 h-4"></i>
                             <a href="https://github.com/ShravanKatkar" target="_blank"
-                                class="hover:text-white transition-colors">GitHub Profile</a>
+                                class="hover:text-black transition-colors">GitHub Profile</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="reveal-on-scroll glass-panel p-8 md:p-12">
+                <div class="reveal-on-scroll glass-panel p-8 md:p-12 rounded-2xl bg-white">
                     <form onsubmit="event.preventDefault();" class="space-y-6">
                         <div class="space-y-2">
-                            <label class="text-xs font-mono uppercase text-zinc-500">Full Name</label>
+                            <label class="text-xs font-mono uppercase text-zinc-400">Full Name</label>
                             <input type="text"
-                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none"
+                                class="w-full bg-zinc-50 border border-zinc-100 p-4 text-black focus:border-indigo-600 transition-colors outline-none rounded-lg"
                                 placeholder="John Doe">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-xs font-mono uppercase text-zinc-500">Email Address</label>
+                            <label class="text-xs font-mono uppercase text-zinc-400">Email Address</label>
                             <input type="email"
-                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none"
+                                class="w-full bg-zinc-50 border border-zinc-100 p-4 text-black focus:border-indigo-600 transition-colors outline-none rounded-lg"
                                 placeholder="john@example.com">
                         </div>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
-                                <label class="text-xs font-mono uppercase text-zinc-500">Message</label>
+                                <label class="text-xs font-mono uppercase text-zinc-400">Message</label>
                                 <button type="button" id="ai-polish-btn"
-                                    class="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded flex items-center gap-1 transition-colors">
+                                    class="text-[10px] bg-zinc-100 hover:bg-zinc-200 text-zinc-600 px-2 py-1 rounded flex items-center gap-1 transition-colors">
                                     <i data-lucide="sparkles" class="w-3 h-3"></i> AI Polish
                                 </button>
                             </div>
                             <textarea id="contact-message" rows="4"
-                                class="w-full bg-black/50 border border-zinc-800 p-4 text-white focus:border-white transition-colors outline-none resize-none"
+                                class="w-full bg-zinc-50 border border-zinc-100 p-4 text-black focus:border-indigo-600 transition-colors outline-none resize-none rounded-lg"
                                 placeholder="Tell me about your project..."></textarea>
                         </div>
                         <button
-                            class="w-full bg-white text-black font-bold py-4 hover:bg-zinc-200 transition-colors font-mono uppercase tracking-widest">Send
+                            class="w-full bg-black text-white font-bold py-4 hover:bg-zinc-800 transition-colors font-mono uppercase tracking-widest rounded-lg">Send
                             Message</button>
                     </form>
                 </div>
             </div>
 
             <div
-                class="mt-32 pt-8 border-t border-zinc-900 flex justify-between items-center text-xs font-mono text-zinc-600">
+                class="mt-32 pt-8 border-t border-zinc-200 flex justify-between items-center text-xs font-mono text-zinc-400">
                 <div>© 2025 SHRAVAN KATKAR</div>
                 <div>ENGINEERED WITH FLASK & GEMINI</div>
             </div>
@@ -612,37 +722,37 @@
     <!-- Chat Widget -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         <div id="chat-window"
-            class="hidden mb-4 w-80 md:w-96 h-[500px] glass-panel rounded-none flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0"
+            class="hidden mb-4 w-80 md:w-96 h-[500px] glass-panel rounded-2xl flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0 border border-zinc-100 shadow-2xl overflow-hidden bg-white"
             style="transition: all 0.3s ease;">
-            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+            <div class="p-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
                 <div class="flex items-center gap-2">
                     <span class="relative flex h-2 w-2">
                         <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
                     </span>
-                    <span class="font-mono text-sm font-bold tracking-wider">SHRAVAN.AI</span>
+                    <span class="font-mono text-sm font-bold tracking-wider text-black">SHRAVAN.AI</span>
                 </div>
-                <button onclick="toggleChat()" class="hover:text-white text-zinc-500"><i data-lucide="x"
+                <button onclick="toggleChat()" class="hover:text-black text-zinc-400"><i data-lucide="x"
                         class="w-4 h-4"></i></button>
             </div>
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm font-mono">
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm font-mono bg-white">
                 <div class="flex justify-start">
-                    <div class="max-w-[85%] p-4 bg-white/5 border border-white/10 text-zinc-300">
+                    <div class="max-w-[85%] p-4 bg-zinc-50 border border-zinc-100 text-zinc-600 rounded-2xl rounded-tl-none">
                         System initialized. I am Shravan's digital twin. How can I assist with your inquiry today?
                     </div>
                 </div>
             </div>
-            <form onsubmit="handleChat(event)" class="p-4 border-t border-white/10 bg-black/40 flex gap-2">
+            <form onsubmit="handleChat(event)" class="p-4 border-t border-zinc-100 bg-zinc-50/50 flex gap-2">
                 <input id="chat-input"
-                    class="w-full bg-transparent border-b border-zinc-700 p-2 text-white outline-none font-mono text-sm focus:border-white transition-colors"
+                    class="w-full bg-transparent border-b border-zinc-200 p-2 text-black outline-none font-mono text-sm focus:border-indigo-600 transition-colors"
                     placeholder="Type command...">
-                <button class="text-white hover:text-zinc-300 transition-colors"><i data-lucide="send"
+                <button class="text-indigo-600 hover:text-indigo-800 transition-colors"><i data-lucide="send"
                         class="w-4 h-4"></i></button>
             </form>
         </div>
         <button onclick="toggleChat()"
-            class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform">
+            class="w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
             <i data-lucide="bot" class="w-6 h-6"></i>
         </button>
     </div>
@@ -650,39 +760,106 @@
     <script>
         lucide.createIcons();
 
+        // Entrance Reveal Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const line = document.getElementById('reveal-line');
+            const text = document.getElementById('reveal-text');
+            const overlay = document.getElementById('reveal-overlay');
+
+            setTimeout(() => { line.style.width = '100%'; }, 200);
+            setTimeout(() => { text.style.transform = 'translateY(0)'; }, 800);
+            setTimeout(() => {
+                document.body.classList.add('reveal-active');
+                setTimeout(() => { overlay.style.display = 'none'; }, 1200);
+            }, 2000);
+        });
+
+        // Skill Keyboard Logic
+        function showSkill(title, category, desc, icon) {
+            const detail = document.getElementById('skill-detail');
+            document.getElementById('skill-title').innerText = title;
+            document.getElementById('skill-category').innerText = category;
+            document.getElementById('skill-desc').innerText = desc;
+            
+            // Update Icon
+            const iconContainer = document.getElementById('skill-icon');
+            iconContainer.innerHTML = `<i data-lucide="${icon}" class="w-8 h-8"></i>`;
+            lucide.createIcons();
+
+            detail.classList.add('visible');
+            
+            // Highlight active key
+            document.querySelectorAll('.kb-key').forEach(k => {
+                if (k.innerText.toLowerCase().includes(title.toLowerCase().split(' ')[0])) {
+                    k.classList.add('active');
+                } else {
+                    k.classList.remove('active');
+                }
+            });
+        }
+
+        function hideSkillDetail() {
+            document.getElementById('skill-detail').classList.remove('visible');
+            document.querySelectorAll('.kb-key').forEach(k => k.classList.remove('active'));
+        }
+
         // Cursor Logic
         const cursor = document.getElementById('cursor-dot'), follower = document.getElementById('cursor-follower');
         let mx = 0, my = 0, fx = 0, fy = 0;
-        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`; });
-        function anim() { fx += (mx - fx) * 0.1; fy += (my - fy) * 0.1; follower.style.transform = `translate3d(${fx}px, ${fy}px, 0) translate(-50%, -50%)`; requestAnimationFrame(anim); }
+        window.addEventListener('mousemove', e => { 
+            mx = e.clientX; my = e.clientY; 
+            cursor.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`; 
+        });
+        function anim() { 
+            fx += (mx - fx) * 0.1; fy += (my - fy) * 0.1; 
+            follower.style.transform = `translate3d(${fx}px, ${fy}px, 0) translate(-50%, -50%)`; 
+            requestAnimationFrame(anim); 
+        }
         anim();
 
         // Hover Effect for Cursor
-        document.querySelectorAll('a, button, .group').forEach(el => {
-            el.addEventListener('mouseenter', () => { follower.classList.add('scale-[1.5]', 'bg-white'); follower.classList.remove('border-white/30'); });
-            el.addEventListener('mouseleave', () => { follower.classList.remove('scale-[1.5]', 'bg-white'); follower.classList.add('border-white/30'); });
-        });
+        function updateCursorHovers() {
+            document.querySelectorAll('a, button, .group, .kb-key').forEach(el => {
+                el.addEventListener('mouseenter', () => { 
+                    follower.classList.add('scale-[1.5]', 'bg-indigo-50/50'); 
+                    follower.style.borderColor = 'rgba(79, 70, 229, 0.5)';
+                });
+                el.addEventListener('mouseleave', () => { 
+                    follower.classList.remove('scale-[1.5]', 'bg-indigo-50/50'); 
+                    follower.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                });
+            });
+        }
+        updateCursorHovers();
 
         // Scroll Reveal
-        const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('reveal-hidden'); e.target.classList.add('reveal-visible'); } }));
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => { el.classList.add('reveal-hidden'); obs.observe(el); });
-
-        // Typing Effect
-        const txt = "Generative AI Engineer", el = document.getElementById('typing-text');
-        // Note: The typing effect element is hidden in this new design in favor of static text, but code kept if you want to re-enable it.
+        const obs = new IntersectionObserver(entries => entries.forEach(e => { 
+            if (e.isIntersecting) { 
+                e.target.classList.remove('reveal-hidden'); 
+                e.target.classList.add('reveal-visible'); 
+            } 
+        }), { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => { 
+            el.classList.add('reveal-hidden'); 
+            obs.observe(el); 
+        });
 
         // Navbar Scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('glass-nav');
-            else nav.classList.remove('glass-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass-panel', 'py-4');
+                nav.classList.remove('py-6', 'border-transparent');
+            } else {
+                nav.classList.remove('glass-panel', 'py-4');
+                nav.classList.add('py-6', 'border-transparent');
+            }
         });
 
         // Chat Logic
         const chatWindow = document.getElementById('chat-window');
         function toggleChat() {
             chatWindow.classList.toggle('hidden');
-            // Small delay to allow display:block to apply before opacity transition
             setTimeout(() => {
                 chatWindow.classList.toggle('opacity-0');
                 chatWindow.classList.toggle('scale-95');
@@ -690,24 +867,27 @@
         }
 
         async function handleChat(e) {
-            e.preventDefault(); const inp = document.getElementById('chat-input'); const msg = inp.value; if (!msg) return;
+            e.preventDefault(); 
+            const inp = document.getElementById('chat-input'); 
+            const msg = inp.value; 
+            if (!msg) return;
             const box = document.getElementById('chat-messages');
 
             // User Message
-            box.innerHTML += `<div class="flex justify-end"><div class="max-w-[85%] p-4 bg-white text-black font-bold text-sm">${msg}</div></div>`;
+            box.innerHTML += `<div class="flex justify-end"><div class="max-w-[85%] p-4 bg-black text-white font-bold text-sm rounded-2xl rounded-tr-none">${msg}</div></div>`;
             inp.value = '';
             box.scrollTop = box.scrollHeight;
 
             // Loading Indicator
             const loadingId = 'load-' + Date.now();
-            box.innerHTML += `<div id="${loadingId}" class="flex justify-start"><div class="text-zinc-500 text-xs font-mono animate-pulse">PROCESSING...</div></div>`;
+            box.innerHTML += `<div id="${loadingId}" class="flex justify-start"><div class="text-zinc-400 text-xs font-mono animate-pulse">PROCESSING...</div></div>`;
             box.scrollTop = box.scrollHeight;
 
             try {
                 const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
                 const data = await res.json();
                 document.getElementById(loadingId).remove();
-                box.innerHTML += `<div class="flex justify-start"><div class="max-w-[85%] p-4 bg-white/5 border border-white/10 text-zinc-300">${data.response}</div></div>`;
+                box.innerHTML += `<div class="flex justify-start"><div class="max-w-[85%] p-4 bg-zinc-50 border border-zinc-100 text-zinc-600 rounded-2xl rounded-tl-none">${data.response}</div></div>`;
             } catch (err) {
                 document.getElementById(loadingId).innerHTML = "ERROR: CONNECTION LOST";
             }
@@ -721,12 +901,15 @@
             if (original.length < 3) return;
 
             const btn = document.getElementById('ai-polish-btn');
+            const oldHtml = btn.innerHTML;
             btn.innerHTML = "POLISHING...";
 
-            const res = await fetch('/api/polish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: original }) });
-            const data = await res.json();
-            txt.value = data.response;
-            btn.innerHTML = '<i data-lucide="sparkles" class="w-3 h-3"></i> AI Polish';
+            try {
+                const res = await fetch('/api/polish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: original }) });
+                const data = await res.json();
+                txt.value = data.response;
+            } catch(e) {}
+            btn.innerHTML = oldHtml;
         });
     </script>
 </body>
